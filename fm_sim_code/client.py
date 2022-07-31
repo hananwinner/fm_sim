@@ -1,7 +1,7 @@
-class MessageStreamElement(object):
-    def __init__(self, address, wait):
-        self.address = address
-        self.wait = wait
+import logging
+import logging.config
+import pandas as pd
+# logging.config.fileConfig('logging.config')
 
 
 class MessageStream(object):
@@ -17,13 +17,22 @@ class MessageStream(object):
             self.state = self.STATE_ELEMENT
         else:
             self.state = self.STATE_DONE
+        self.rate = 0
+        self.top_addresses = []
+
+
+        # TODO
+        _list = [x["address"] for x in stream_elements]
+        s = pd.Series(_list)
+        mean = s.mean()
+        _top = [x for x in _list if x > mean + 3]
 
     def get_next_message(self):
         result = -1
         if self.state == self.STATE_ELEMENT:
                 cur_elem = self.stream_elements[self.cur_elem_index]
-                result = cur_elem.address
-                wait = cur_elem.wait
+                result = cur_elem["address"]
+                wait = cur_elem["wait"]
                 if wait > 0:
                     self.state = self.STATE_WAIT
                     self.cur_wait = wait
@@ -44,25 +53,3 @@ class MessageStream(object):
                     self.state = self.STATE_ELEMENT
 
         return result
-
-
-
-
-
-
-
-
-
-
-
-
-
-class Client(object):
-    def get(self):
-        """
-        Get the Current message.
-        If the client is in wait time after the previous message,
-        :return:
-        :rtype:
-        """
-
