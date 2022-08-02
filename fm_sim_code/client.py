@@ -38,7 +38,7 @@ class MessageStream(object):
                     self.cur_wait = wait
                 else:
                     self.cur_elem_index += 1
-                    if self.cur_elem_index > len(self.stream_elements):
+                    if self.cur_elem_index == len(self.stream_elements):
                         self.state = self.STATE_DONE
                     else:
                         self.state = self.STATE_ELEMENT
@@ -47,7 +47,7 @@ class MessageStream(object):
             self.cur_wait -= 1
             if self.cur_wait == 0:
                 self.cur_elem_index += 1
-                if self.cur_elem_index > len(self.stream_elements):
+                if self.cur_elem_index == len(self.stream_elements):
                     self.state = self.STATE_DONE
                 else:
                     self.state = self.STATE_ELEMENT

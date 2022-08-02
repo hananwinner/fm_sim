@@ -1,21 +1,21 @@
 import sys
 sys.path.append("../fm_sim_code")
-import logging
-logging.config.fileConfig('logging.config')
 from unittest import TestCase
 from fm_sim_code.cache import FifoCache
 from fm_sim_code.client import MessageStream
 from fm_sim_code.server import ServerSimulation
 import yaml
+import log_utils
+
+log_utils.configure_log('test')
 
 
 class TestServerSimulation(TestCase):
     def setUp(self) -> None:
         with open("../examples/debug/trace_1.yaml", "r") as stream:
-            print('yoo')
             try:
                 x = yaml.safe_load(stream)
-                print(x)
+                # print(x)
             except yaml.YAMLError as exc:
                 print(exc)
         self._trace1 = x
