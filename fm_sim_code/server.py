@@ -1,9 +1,12 @@
 from queue import Queue
 from cache import CacheBase
+from client import MessageStream
+import logging
+
 
 
 class ServerSimulation(object):
-    def __init__(self, instructions_provider, cache_provider: CacheBase):
+    def __init__(self, instructions_provider: MessageStream, cache_provider: CacheBase):
         self._step = -1
         self._instructions_provider = instructions_provider
         self._cache_provider = cache_provider
@@ -19,24 +22,23 @@ class ServerSimulation(object):
             next_address = self._instructions_provider.get_next_message()
 
             # latencies update
-            for i in self._resolved_latencies[self._resolved_count:]:
+            for i in range(self._resolved_count, len(self._resolved_latencies)):
                 self._resolved_latencies[i] += 1
-
-            # putting in the queue
-            if next_address and next_address != -1:
-                self._queue.put(next_address)
-                self._latencies.append()
 
             # processing the queue
             if not self._queue.empty():
                 served_address = self._queue.get()
                 fetch_cost = 1
-                if not self._cache_provider.contains(served_address):
-                    self._cache_provider.insert(served_address)
+                if not self._cache_provider.on_step(served_address):
                     fetch_cost = 2
                 self._buffer = served_address
                 self._resolved_latencies[self._resolved_count] += fetch_cost
                 self._resolved_count += 1
+
+            # putting in the queue
+            if next_address and next_address != -1:
+                self._queue.put(next_address)
+                self._resolved_latencies.append(0)
 
             if next_address == -1 and self._queue.empty():
                 break
@@ -47,11 +49,3 @@ class ServerSimulation(object):
 
     def print_summary(self):
         pass
-
-
-
-
-
-
-
-

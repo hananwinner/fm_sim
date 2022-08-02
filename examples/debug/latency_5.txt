@@ -1,0 +1,16 @@
+addr = 15, latency = 2
+addr = 7, latency = 3
+addr = 8, latency = 4
+addr = 12, latency = 5
+addr = 8, latency = 5
+addr = 27, latency = 6
+addr = 19, latency = 7
+addr = 2, latency = 8
+addr = 13, latency = 9
+addr = 24, latency = 10
+addr = 27, latency = 10
+addr = 30, latency = 11
+addr = 6, latency = 12
+addr = 20, latency = 13
+addr = 2, latency = 13
+addr = 26, latency = 14

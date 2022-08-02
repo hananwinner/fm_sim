@@ -22,10 +22,10 @@ class MessageStream(object):
 
 
         # TODO
-        _list = [x["address"] for x in stream_elements]
-        s = pd.Series(_list)
-        mean = s.mean()
-        _top = [x for x in _list if x > mean + 3]
+        # _list = [x["address"] for x in stream_elements]
+        # s = pd.Series(_list)
+        # mean = s.mean()
+        # _top = [x for x in _list if x > mean + 3]
 
     def get_next_message(self):
         result = -1
