@@ -1,3 +1,4 @@
 .idea/*
 Pipfile
 logs/*
+*__pycache__*

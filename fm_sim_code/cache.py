@@ -58,7 +58,7 @@ class PrefetcherCache(CacheBase):
     def __init__(self, cache_size):
         self._cache = OrderedDict()
         self.cur_step = 0
-        super.__init__(self, cache_size)
+        super().__init__(cache_size)
 
     def contains(self, address):
         return address in self._cache
@@ -135,7 +135,7 @@ class BayesianMarkovCache(FifoCache):
     def __init__(self, cache_size):
         self._followers_dict = {}
         self._prev_address_fetched = None
-        super.__init__(self, cache_size)
+        super().__init__(cache_size)
 
     def on_step(self, address_to_fetch):
         """
@@ -174,7 +174,6 @@ class BayesianMarkovCache(FifoCache):
             followers = self._followers_dict[address]
             if followers:
                 item = max(followers, key=followers.get)
-                k, _ = item
-                result = k
+                result = item
 
         return result

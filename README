@@ -1,0 +1,8 @@
+To run with interactive shell to specify trace number, cache type, and cache size:
+==================================================================================
+python3 -m unittest test_server.TestServerSimulation.test_interactive
+
+or use other test methods:
+==================================================================================
+python3 -m unittest test_server.TestServerSimulation.test_run_trace1_fifo_8
+python3 -m unittest test_server.TestServerSimulation.test_run_all

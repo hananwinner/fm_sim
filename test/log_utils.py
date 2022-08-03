@@ -28,7 +28,7 @@ def configure_log(test_name):
         },
         'loggers': {
             '': {  # root logger
-                'handlers': ['default', 'console'],
+                'handlers': ['default'],
                 'level': 'INFO',
                 'propagate': False
             },
